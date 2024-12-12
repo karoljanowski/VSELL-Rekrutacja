@@ -30,7 +30,7 @@ const UserCardComponent = ({isReversed, userData = DEFAULT_USER_DATA}: UserCardP
         <AnimatePresence mode='wait'>
             <motion.div 
                 key={isReversed ? 'reversed' : 'normal'}
-                className='bg-white rounded-lg px-4 py-3 shadow-md flex items-center gap-4'
+                className='bg-white rounded-lg px-4 py-3 shadow-md flex items-center gap-3 md:gap-4 w-full max-w-md'
                 style={{
                     flexDirection: isReversed ? 'row-reverse' : 'row'
                 }}
@@ -38,7 +38,7 @@ const UserCardComponent = ({isReversed, userData = DEFAULT_USER_DATA}: UserCardP
                 <AnimatedComponent>
                     <Avatar avatar={userData.avatar} points={userData.points} isReversed={isReversed} />
                 </AnimatedComponent>
-                <AnimatedComponent className='self-start'>
+                <AnimatedComponent className='self-start flex-grow'>
                     <Description name={userData.name} description={userData.description} verified={userData.verified} />
                 </AnimatedComponent>
                 <AnimatedComponent>
@@ -75,10 +75,10 @@ interface AvatarProps {
 
 const Avatar = ({avatar, points, isReversed}: AvatarProps) => {
     return (
-        <div className='w-16 h-16 relative'>
+        <div className='w-14 h-14 md:w-16 md:h-16 relative'>
             <img src={avatar} alt='avatar' className='w-full h-full object-cover rounded-full' />
             <div className={`absolute bottom-0 flex items-center ${isReversed ? 'left-0 flex-row-reverse -translate-x-8' : 'right-0 flex-row translate-x-8'}`}>
-                <img src={starIcon} alt='points' className='w-6 h-6 border-2 border-white rounded-full' />
+                <img src={starIcon} alt='points' className='w-5 h-5 md:w-6 md:h-6 border-2 border-white rounded-full' />
                 <span className='text-xs font-bold bg-gradient-to-r from-[#688DD1] to-[#8CE8E0] bg-clip-text text-transparent translate-y-1.5'>{points}</span>
             </div>
         </div>
@@ -93,12 +93,12 @@ interface DescriptionProps {
 
 const Description = ({name, description, verified}: DescriptionProps) => {
     return (
-        <div className='flex flex-col min-w-64 gap-px'>
+        <div className='flex flex-col md:min-w-64 gap-px'>
             <div className="flex items-center gap-1">
-                <p className='text-lg font-bold leading-tight'>{name}</p>
+                <p className='md:text-lg font-bold leading-tight'>{name}</p>
                 {verified && <img src={verifiedIcon} className='w-5 h-5' alt='user verified' />}
             </div>
-            <p className='leading-tight'>{description}</p>
+            <p className='text-sm/none md:text-base/none'>{description}</p>
         </div>
     )
 }
